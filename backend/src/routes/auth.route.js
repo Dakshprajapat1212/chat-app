@@ -15,7 +15,7 @@ router.put("/update-profile",protectRoute,UpdateProfile)
 
 router.get("/check",protectRoute,checkAuth)
    router.get("/:id",protectRoute,getUsersForSidebar)
-router.post("sender/:id",protectRoute,sendMessage)
+
 
 export default router;
 

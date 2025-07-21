@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { generateAccessToken } from "../utils/utils.js";
-
+import cloudinary from "../utils/cloudinary.js";
 export const signup = asyncHandler(async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
@@ -108,7 +108,7 @@ export const UpdateProfile = async (req, res) => {
       resource_type: "auto",
       timeout: 60000
     });
-    await User.findByIdAndUpdate(userId, { profilePic: updateResponse.secure_url });
+    const ok=await User.findByIdAndUpdate(userId, { profilePic: updateResponse.secure_url });
     return res.status(200).json({ message: "Profile updated successfully", profilePic: updateResponse.secure_url });
   } catch (error) {
     console.error("Error updating profile:", error.message);
