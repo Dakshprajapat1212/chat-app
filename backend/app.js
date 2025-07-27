@@ -3,10 +3,12 @@ import cors from "cors"
 import cookieparser from "cookie-parser"
 
 const app=express();
- app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true
-}))
+;
+
+app.use(cors({
+  origin: "http://localhost:5173", // ✅ No extra quotes
+  credentials: true, // If you use cookies
+}));
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -17,8 +19,8 @@ app.use(cookieparser())
 import authRoutes from "./src/routes/auth.route.js";
 import messageRoutes from "./src/routes/message.route.js";
 
-app.use("/api/user/v1", authRoutes); 
-app.use("/api/user/v1/message", messageRoutes); 
+app.use("/api/auth", authRoutes); 
+app.use("/api/messages", messageRoutes); 
 
 
 export {app}
