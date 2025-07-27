@@ -33,7 +33,7 @@ const SignUpPage = () => {
             </div>
           </div>
 
-          {/* ✅ FORM starts here */}
+          {/*  FORM starts here */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name Input with icon */}
             <div className="form-control mt-4">
@@ -111,7 +111,7 @@ const SignUpPage = () => {
       {/* Right side */}
       <div className="hidden lg:flex items-center justify-center bg-base-200">
         <p className="text-xl font-semibold text-base-content/60">
-          Welcome to the community 🚀
+          Welcome to the community 
         </p>
       </div>
     </div>
