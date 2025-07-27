@@ -1,51 +1,28 @@
 import React from 'react'
+import { useAuthStore } from '../store/UserAuthStore'
 
 const HomePage = () => {
+  const { setAuthUser } = useAuthStore();
+
+  const handleLogout = () => {
+    // Clear auth user and force logout
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setAuthUser(null);
+    window.location.href = "/login";
+  };
+
   return (
-    <div>
-      <h1>hello</h1>
+    <div className="p-10 space-y-4">
+      <h1 className="text-2xl font-bold">Hello, you're logged in ✅</h1>
+      
+      <button 
+        onClick={handleLogout} 
+        className="btn btn-error"
+      >
+        Logout
+      </button>
     </div>
-  )
+  );
 }
 
-export default HomePage
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { create } from 'zustand'
-
-// const useStore = create((set) => ({
-//   count: 0,
-
-//   // ✅ Action function to update state
-//   increase: () =>
-//     set((state) => ({
-//       count: state.count + 1
-//     })),
-
-//   // ✅ Another action
-//   reset: () =>
-//     set({ count: 0 })
-// }))
-
-
-
-// so basicalyy in store we are using variable and function like reducer and we canuse this later ,  in reducer , we have slice to store function and store to store data , but in zustand it does things in one place
+export default HomePage;
