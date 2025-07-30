@@ -1,28 +1,24 @@
-import React from 'react'
-import { useAuthStore } from '../store/UserAuthStore'
+import { useChatStore } from "../store/useChatStore";
+
+import Sidebar from "../components/Sidebar";
+import NoChatSelected from "../components/NoChatSelected";
+import ChatContainer from "../components/ChatContainer";
 
 const HomePage = () => {
-  const { setAuthUser } = useAuthStore();
-
-  const handleLogout = () => {
-    // Clear auth user and force logout
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    setAuthUser(null);
-    window.location.href = "/login";
-  };
+  const { selectedUser } = useChatStore();
 
   return (
-    <div className="p-10 space-y-4">
-      <h1 className="text-2xl font-bold">Hello, you're logged in ✅</h1>
-      
-      <button 
-        onClick={handleLogout} 
-        className="btn btn-error"
-      >
-        Logout
-      </button>
+    <div className="h-screen bg-base-200">
+      <div className="flex items-center justify-center pt-20 px-4">
+        <div className="bg-base-100 rounded-lg shadow-cl w-full max-w-6xl h-[calc(100vh-8rem)]">
+          <div className="flex h-full rounded-lg overflow-hidden">
+            <Sidebar />
+
+            {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
-
+};
 export default HomePage;

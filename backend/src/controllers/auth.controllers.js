@@ -98,23 +98,42 @@ export const UpdateProfile = async (req, res) => {
   try {
     const { profilePic } = req.body;
     const userId = req.user?._id;
+
     if (!profilePic) {
       return res.status(400).json({ message: "Profile picture is required" });
     }
+
     if (!userId) {
-      return res.status(401).json({ message: "Invalid user" });
+      return res.status(401).json({ message: "Unauthorized user" });
     }
+
+    // Upload to Cloudinary
     const updateResponse = await cloudinary.uploader.upload(profilePic, {
       resource_type: "auto",
-      timeout: 60000
+      timeout: 60000,
+      // Uncomment this if you're using an upload preset:
+      // upload_preset: "your_preset_name"
     });
-    const ok=await User.findByIdAndUpdate(userId, { profilePic: updateResponse.secure_url });
-    return res.status(200).json({ message: "Profile updated successfully", profilePic: updateResponse.secure_url });
+
+    // Update user profilePic
+    await User.findByIdAndUpdate(userId, {
+      profilePic: updateResponse.secure_url
+    });
+
+    // Return updated user
+    const updatedUser = await User.findById(userId).select("-password"); // exclude password
+
+    return res.status(200).json({
+      message: "Profile updated successfully",
+      user: updatedUser
+    });
+
   } catch (error) {
     console.error("Error updating profile:", error.message);
     return res.status(500).json({ message: "Internal server error" });
   }
-}
+};
+
 export const checkAuth = async (req, res) => {
   const user = req.user;
   if (!user) {

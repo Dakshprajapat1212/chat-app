@@ -4,7 +4,7 @@ import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-react";
 import toast from "react-hot-toast";
-import { Toaster } from 'react-hot-toast';
+
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -54,7 +54,7 @@ const SignUpPage = () => {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
-      <Toaster position="top-right" />
+   
       
       {/* Left side - Form */}
       <div className="flex flex-col justify-center items-center p-6 sm:p-12">
