@@ -1,24 +1,16 @@
-
-import { setMaxListeners } from "events";
-setMaxListeners(20); // Or more
-
-
-import express from "express";
-
-
-
-import dotenv from "dotenv"
+// index.js
+import dotenv from "dotenv";
+import { server } from "./src/lib/socket.js"; // ✅ already has http.createServer(app)
 import connectDB from "./src/db/db.js";
-import { app } from "./app.js";
 
 dotenv.config();
- // ✅ Declare first
-const PORT=process.env.PORT ;
+
+const PORT = process.env.PORT || 5001;
 
 connectDB()
-.then(()=>{
-      app.listen(PORT, () => {
+  .then(() => {
+    server.listen(PORT, () => {
       console.log(`⚙️ Server is running at port : ${PORT}`);
-});
-
-})
+    });
+  })
+  .catch((err) => console.error("❌ DB connection failed", err));
