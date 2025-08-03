@@ -1,12 +1,11 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-   "scripts": {
+  "scripts": {
     "build": "npm ci --prefix backend && npm ci --prefix frontend --include=dev && npm run build --prefix frontend && cp -r frontend/dist backend/public",
-  "start": "npm start --prefix backend"
+    "start": "node backend/index.js"
   },
-
- "engines": {
-  "node": "20.x"
-}
+  "engines": {
+    "node": "20.x"
+  }
 }
