@@ -2,9 +2,11 @@
 import dotenv from "dotenv";
 import { server } from "./src/lib/socket.js"; // ✅ already has http.createServer(app)
 import connectDB from "./src/db/db.js";
+import path from "path"
 
 dotenv.config();
 
+const __dirname = path.resolve();
 const PORT = process.env.PORT || 5001;
 
 connectDB()
